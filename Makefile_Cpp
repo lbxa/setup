@@ -1,0 +1,33 @@
+# Make by Lucas Barbosa | Open source software (C)
+# C++17 standard
+
+CXX_FLAGS := -g -O -Wall -Werror -std=c++17 -pedantic -m64
+# -Wall 	 : Warning[all]
+# -Werror    : Warning[error]
+# -std=c++14 : C++14 compiler support
+# -pedantic  : ISO error thrower mode
+# -O         : Compilation optimiser (speed)
+# -m64       : 64 bit architecture compilation
+# -g         : GDB Debugging mode (Turn off -O optimiser)
+
+CXX_COMP := g++
+# GNU G++ is default compiler
+
+# global file selector wildcards
+MAIN_SRC  := $(wildcard *.cpp)
+MAIN_O    := main.o
+OBJ_FILES := $(wildcard *.o)
+
+default_action : compile_all run_all
+
+compile_all:
+	@echo "Compiling code..."
+	$(CXX_COMP) $(CXX_FLAGS) $(MAIN_SRC) -o $(MAIN_O)
+
+run_all: $(MAIN_O)
+	@echo "Executing code..."
+	./$<
+
+clean: $(MAIN_O)
+	@echo "Clearing object files..."
+	rm -r  $(OBJ_FILES)
